@@ -1,7 +1,7 @@
 const Workout = require("../../models/workout.js");
 const router = require('express').Router();
 
-// Get workouts
+// Get all workouts
 router.get("/", (req, res) => {
   Workout.find({})
     .then(dbWorkout => {
@@ -48,7 +48,7 @@ router.put("/:id", (req, res) => {
 // Get workouts from range
 router.get("/range", (req, res) => {
   Workout.find({})
-    .limit(7)
+    .limit(8)
     .then(dbWorkout => {
       res.json(dbWorkout)
     })

@@ -3,7 +3,15 @@ const router = require('express').Router();
 
 // Get all workouts
 router.get("/", (req, res) => {
-  Workout.find({})
+  Workout.aggregate([
+      {
+        $addFields: {
+          totalDuration: {
+            $sum: "$exercises.duration"
+          }
+        }
+      }
+    ])
     .then(dbWorkout => {
       res.json(dbWorkout);
     })
@@ -47,7 +55,15 @@ router.put("/:id", (req, res) => {
 
 // Get workouts from range
 router.get("/range", (req, res) => {
-  Workout.find({})
+  Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: {
+          $sum: "$exercises.duration"
+        }
+      }
+    }
+    ])
     .sort({day: 'desc'})
     .limit(7)
     .then(dbWorkout => {

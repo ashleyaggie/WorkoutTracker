@@ -48,7 +48,8 @@ router.put("/:id", (req, res) => {
 // Get workouts from range
 router.get("/range", (req, res) => {
   Workout.find({})
-    .limit(8)
+    .sort({day: 'desc'})
+    .limit(7)
     .then(dbWorkout => {
       res.json(dbWorkout)
     })
